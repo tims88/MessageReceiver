@@ -3,8 +3,10 @@ package com.receiver;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Receiver {
 
@@ -34,6 +36,17 @@ private static String message;
 	            message = bufferedReader.readLine();
 	
 	            System.out.println(message);
+	            
+	            Scanner keyboard = new Scanner(System.in);
+	            String response = keyboard.nextLine();
+	            
+	            System.out.println("Sending response back to phone: " + response);
+	            
+	            PrintWriter pw = new PrintWriter(clientSocket.getOutputStream());
+	            pw.write(response);
+	            pw.flush();
+	            pw.close();
+	            
 	            inputStreamReader.close();
 	            clientSocket.close();
 	
